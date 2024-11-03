@@ -95,10 +95,10 @@ public class LoginFragment extends Fragment implements NetworkChangeReceiver.OnN
             public void onClick(View v) {
                 if (editMatKhau.getTransformationMethod() instanceof android.text.method.PasswordTransformationMethod) {
                     editMatKhau.setTransformationMethod(null);
-                    imageEye.setImageResource(R.drawable.eye);
+                    imageEye.setImageResource(R.drawable.mdi_light_eye_off);
                 } else {
                     editMatKhau.setTransformationMethod(new android.text.method.PasswordTransformationMethod());
-                    imageEye.setImageResource(R.drawable.mdi_light_eye_off);
+                    imageEye.setImageResource(R.drawable.eye);
                 }
                 editMatKhau.setSelection(editMatKhau.getText().length());
             }

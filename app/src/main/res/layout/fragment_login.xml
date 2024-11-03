@@ -75,7 +75,7 @@
                 android:id="@+id/eye_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/mdi_light_eye_off"
+                android:src="@drawable/eye"
                 android:layout_marginEnd="12dp"
                 android:contentDescription="Hiển thị mật khẩu"
                 app:layout_constraintEnd_toEndOf="parent"

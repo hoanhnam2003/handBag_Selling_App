@@ -1,5 +1,7 @@
 package com.namha.handbagsellingapp.fragment;
 
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -14,18 +16,21 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.namha.handbagsellingapp.R;
 import com.namha.handbagsellingapp.adapter.homePagerAdapter;
+import com.namha.handbagsellingapp.receiver.NetworkChangeReceiver;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class HomeFragment1 extends Fragment {
+public class HomeFragment1 extends Fragment implements NetworkChangeReceiver.OnNetworkChangeListener {
     private static final long DELAY_MS = 2000; // Thời gian delay giữa các slide
     private ViewPager2 viewPager;
     private Handler handler = new Handler();
     private Runnable runnable;
     private int currentPage = 0;
+    private boolean isNetworkConnected = true; // Để theo dõi trạng thái mạng
 
     private List<TextView> indicatorDots;
+    private NetworkChangeReceiver networkChangeReceiver;
 
     @Nullable
     @Override
@@ -66,18 +71,33 @@ public class HomeFragment1 extends Fragment {
             }
         });
 
+        // Khởi tạo BroadcastReceiver để theo dõi trạng thái mạng
+        networkChangeReceiver = new NetworkChangeReceiver(this);
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        requireContext().registerReceiver(networkChangeReceiver, filter);
+
         // Bắt đầu tự động cuộn banner
+        startAutoScroll();
+    }
+
+    private void startAutoScroll() {
+        stopAutoScroll(); // Dừng mọi cuộn trước đó để tránh lặp lại Runnable
+
         runnable = new Runnable() {
             @Override
             public void run() {
-                if (!imageList.isEmpty()) {
-                    currentPage = (currentPage + 1) % imageList.size();
+                if (isNetworkConnected && viewPager != null && viewPager.getAdapter() != null) {
+                    currentPage = (currentPage + 1) % viewPager.getAdapter().getItemCount();
                     viewPager.setCurrentItem(currentPage, true);
+                    handler.postDelayed(this, DELAY_MS); // Sử dụng DELAY_MS để tạo độ trễ ổn định
                 }
-                handler.postDelayed(this, DELAY_MS);
             }
         };
-        handler.postDelayed(runnable, DELAY_MS);
+        handler.postDelayed(runnable, DELAY_MS); // Đặt lại Runnable với thời gian trì hoãn
+    }
+
+    private void stopAutoScroll() {
+        handler.removeCallbacks(runnable);
     }
 
     private void updateIndicator(int position) {
@@ -92,9 +112,22 @@ public class HomeFragment1 extends Fragment {
     }
 
     @Override
+    public void onNetworkChange(boolean isConnected) {
+        isNetworkConnected = isConnected;
+        if (isConnected) {
+            if (viewPager != null) {
+                currentPage = viewPager.getCurrentItem();
+            }
+            startAutoScroll(); // Khởi động lại cuộn khi có kết nối mạng
+        } else {
+            stopAutoScroll(); // Dừng cuộn khi mất mạng
+        }
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         handler.removeCallbacks(runnable); // Ngăn rò rỉ bộ nhớ
+        requireContext().unregisterReceiver(networkChangeReceiver);
     }
-
 }
