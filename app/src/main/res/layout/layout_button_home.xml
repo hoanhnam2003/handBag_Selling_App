@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/xanhduongnhat1"
+    android:paddingVertical="4dp"
+    android:paddingHorizontal="4dp">
+
+    <TextView
+        android:id="@+id/tvHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Trang chủ"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:drawableTopCompat="@drawable/home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvLove" />
+
+    <TextView
+        android:id="@+id/tvLove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Yêu thích"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:drawableTopCompat="@drawable/heart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvHome"
+        app:layout_constraintEnd_toStartOf="@id/tvMess" />
+
+    <TextView
+        android:id="@+id/tvMess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Nhắn tin"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:drawableTopCompat="@drawable/mess"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvLove"
+        app:layout_constraintEnd_toStartOf="@id/tvBell" />
+
+    <TextView
+        android:id="@+id/tvBell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Thông báo"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:drawableTopCompat="@drawable/bell"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvMess"
+        app:layout_constraintEnd_toStartOf="@id/tvAccount" />
+
+    <TextView
+        android:id="@+id/tvAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Tài khoản"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:drawableTopCompat="@drawable/account"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvBell"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

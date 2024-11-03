@@ -144,9 +144,9 @@ public class LoginFragment extends Fragment implements NetworkChangeReceiver.OnN
 
     // Navigate to RegisterFragment
     private void navigateToHomeFragment() {
-        Fragment homeFragment = new HomeFragment();
+        Fragment homeFragment1 = new HomeFragment();
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, homeFragment);
+        transaction.replace(R.id.fragment_container, homeFragment1);
         transaction.addToBackStack(null); // Optional: add to back stack
         transaction.commit();
     }
